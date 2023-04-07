@@ -2,6 +2,7 @@ import * as bcrypt from 'bcrypt'
 import connection from '../../db/sequelize/sequelize'
 import ServiceFactory from '../../utils/ServiceFactory'
 import { User as UserModel } from '../../db/models/user'
+import { Request } from 'express'
 
 const { User } = connection
 
@@ -10,7 +11,7 @@ class AuthService extends ServiceFactory<UserModel> {
     return req.session?.user || null
   }
 
-  async signUp (req) {
+  async signUp (req: Request) {
     const { password, username } = req.body
     const hashedPassword = await bcrypt.hash(password, 10)
     const user = (await this.create({

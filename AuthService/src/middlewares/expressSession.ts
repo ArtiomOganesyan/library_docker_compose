@@ -4,11 +4,23 @@ import RedisStore from 'connect-redis'
 import * as dotenv from 'dotenv'
 import * as path from 'path'
 
+declare module 'express-session' {
+  interface SessionData {
+      user:{
+         id:number
+         username:string
+         password:string
+      }
+  }
+};
+
 dotenv.config({ path: path.join(process.cwd(), '.env') })
 
 console.log(process.env.REDIS_URL)
 
-const redisClient = createClient({ url: process.env.REDIS_URL ?? 'redis://localhost:6379' })
+const redisClient = createClient({
+  url: process.env.REDIS_URL ?? 'redis://localhost:6379'
+})
 
 redisClient.connect().catch(console.error)
 
