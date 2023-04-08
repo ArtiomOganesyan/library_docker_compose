@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import * as session from 'express-session'
 import { createClient } from 'redis'
 import RedisStore from 'connect-redis'
@@ -5,8 +6,8 @@ import * as dotenv from 'dotenv'
 import * as path from 'path'
 
 declare module 'express-session' {
-  interface SessionData {
-      user:{
+  interface Session {
+      user?:{
          id:number
          username:string
          password:string
